@@ -9,7 +9,7 @@ export default class Model {
     if (typeof this.data === 'string') {
       this.convertToJson()
     }
-    if (typeof this.data !== 'object') {
+    if ((typeof this.data !== 'object') || Array.isArray(this.data)) {
       throw new Error('[MODEL] - data should be an Object !')
     }
   }
