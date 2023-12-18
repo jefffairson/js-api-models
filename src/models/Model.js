@@ -1,3 +1,5 @@
+import Collection from './Collection'
+
 export default class Model {
   #data = null
     
@@ -45,5 +47,9 @@ export default class Model {
     localModel.checkDataValidity()
     localModel.sanitizeData(fields)
     return { ...fields, ...localModel.data }
+  }
+
+  static toCollection(data) {
+    return Collection.make(this, data)
   }
 }
