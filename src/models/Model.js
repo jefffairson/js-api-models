@@ -5,14 +5,6 @@ export default class Model {
     this.#data = data
   }
 
-  get data() {
-    return this.#data
-  }
-
-  static blank() {
-    return this.fields()
-  }
-
   checkDataValidity() {
     if (typeof this.data === 'string') {
       this.convertToJson()
@@ -20,14 +12,6 @@ export default class Model {
     if (typeof this.data !== 'object') {
       throw new Error('[MODEL] - data should be an Object !')
     }
-  }
-
-  static make(data = null) {
-    const localModel = new this(data)
-    const fields = this.fields()
-    localModel.checkDataValidity()
-    localModel.sanitizeData(fields)
-    return { ...fields, ...localModel.data }
   }
 
   convertToJson() {
@@ -45,5 +29,21 @@ export default class Model {
         delete this.#data[key]
       }
     }
+  }
+
+  get data() {
+    return this.#data
+  }
+
+  static blank() {
+    return this.fields()
+  }
+
+  static make(data = null) {
+    const localModel = new this(data)
+    const fields = this.fields()
+    localModel.checkDataValidity()
+    localModel.sanitizeData(fields)
+    return { ...fields, ...localModel.data }
   }
 }
