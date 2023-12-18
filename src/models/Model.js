@@ -1,38 +1,49 @@
 export default class Model {
-    #data
+  #data = null
     
-    constructor(data) {
-        this.data = data
-    }
-    
-    /*static make(data = null) {
-        if (typeof data === 'string') {
-            data = this.convertToJson(data)
-        }
-        if (typeof data !== 'object') {
-            throw new Error('DATA should be an Object !')
-        }
-        return data === null
-            ? this.fields()
-            : { ...this.fields(), ...this.sanitize(data) }
-    }
+  constructor(data) {
+    this.#data = data
+  }
 
-    static convertToJson(data) {
-        try {
-            data = JSON.parse(data)
-        } catch (error) {
-            throw new Error(error)
-        }
-        return data
-    }
+  get data() {
+    return this.#data
+  }
 
-    static sanitize(data) {
-        const baseFieldsKeys = this.fields()
-        for (let key in data) {
-            if(!(key in baseFieldsKeys)) {
-                delete data[key]
-            }
-        }
-        return data
-    }*/
+  static blank() {
+    return this.fields()
+  }
+
+  checkDataValidity() {
+    if (typeof this.data === 'string') {
+      this.convertToJson()
+    }
+    if (typeof this.data !== 'object') {
+      throw new Error('[MODEL] - data should be an Object !')
+    }
+  }
+
+  static make(data = null) {
+    const localModel = new this(data)
+    const fields = this.fields()
+    localModel.checkDataValidity()
+    localModel.sanitizeData(fields)
+    return { ...fields, ...localModel.data }
+  }
+
+  convertToJson() {
+    try {
+      this.#data = JSON.parse(this.data)
+    } catch (error) {
+      throw new Error(`[MODEL] - ${ error }`)
+    }
+  }
+
+  sanitizeData(fields) {
+    const baseFieldsKeys = fields
+    for (let key in this.#data) {
+      if (!(key in baseFieldsKeys)) {
+        delete this.#data[key]
+      }
+    }
+  }
 }
