@@ -1,16 +1,39 @@
 {
-  "name": "api-models",
-  "version": "0.1",
-  "type": "module",
+  "name": "@jefffairson/api-models",
+  "version": "0.1.0",
+  "description": "Custom tool to manipulate JS objects",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jsdom": "^23.0.1",
+    "vite": "^5.0.8",
+    "vitest": "^1.0.4"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest"
   },
-  "devDependencies": {
-    "jsdom": "^23.0.1",
-    "vite": "^5.0.8",
-    "vitest": "^1.0.4"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefffairson/js-api-models.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "api",
+    "models",
+    "objects"
+  ],
+  "author": "jeFFF @ Tisseur de toile",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefffairson/js-api-models/issues"
+  },
+  "homepage": "https://github.com/jefffairson/js-api-models#readme"
 }
