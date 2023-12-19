@@ -1,6 +1,6 @@
 import ModelClass from './Model.js'
 
-export default class collection {
+export default class Collection {
   static make(Model = null, data = null) {
     if (Model === null) {
       throw new Error('[COLLECTION] - DATA missing to create collection ! A Model should be provided')
