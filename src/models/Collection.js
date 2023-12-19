@@ -1,4 +1,3 @@
-import collect from 'collect.js'
 import ModelClass from './Model.js'
 
 export default class Collection {
