@@ -1,28 +1,45 @@
+import collect from 'collect.js'
 import ModelClass from './Model.js'
 
-export default class collection {
-  static make(Model = null, data = null) {
-    if (Model === null) {
+export default class Collection {
+  #Model
+  #data
+
+  constructor(Model = null, data = null) {
+    this.#Model = Model
+    this.#data = data
+  }
+
+  get Model() {
+    return this.#Model
+  }
+
+  get data() {
+    return this.#data
+  }
+
+  checkDataValidity() {
+    if (this.#Model === null) {
       throw new Error('[COLLECTION] - DATA missing to create collection ! A Model should be provided')
     }
-    if (Object.getPrototypeOf(Model).name !== ModelClass.name) {
+    if (Object.getPrototypeOf(this.Model).name !== ModelClass.name) {
       throw new Error('[COLLECTION] - The provided Object is not a Model definition')
     }
-    if (data === null) {
+    if (this.data === null) {
       throw new Error('[COLLECTION] - DATA missing to create collection ! An array of objects is required')
     }
-    if (typeof data === 'string') {
-      data = JSON.parse(data)
+    if (typeof this.data === 'string') {
+      this.#data = JSON.parse(this.data)
     }
-    if (Array.isArray(data) === false) {
+    if (Array.isArray(this.data) === false) {
       throw new Error('[COLLECTION] - DATA should be an Array !')
     }
+  }
+
+  static make(Model = null, data = null) {
+    const localCollection = new this(Model, data)
+    localCollection.checkDataValidity()
     // https://stackoverflow.com/questions/4215737/how-to-convert-an-array-into-an-object
-    return data
-        .map((item) => Model.make(item))
-        /*.reduce(function(acc, cur, i) {
-            acc[cur.id] = cur;
-            return acc;
-          }, {})*/
+    return localCollection.data.map((item) => Model.make(item))
   }
 }
