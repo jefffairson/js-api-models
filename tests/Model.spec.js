@@ -1,9 +1,15 @@
 import { beforeEach } from 'vitest'
 import Model from '@/models/Model'
 
-const myUser = { id: 999, name: 'toto', lolilol: 'Resr'}
+const validUser = { id: 999, name: 'toto' }
+const myUser = { id: 999, name: 'toto', lolilol: 'Resr' }
 const myUserAsString = JSON.stringify(myUser)
 const myUserAsStringInvalidJson = myUserAsString.slice(0, -1)
+const myUsers = [
+  myUser,
+  myUserAsString,
+  validUser,
+]
 
 describe('Model.js', () => {
   class User extends Model {
@@ -24,10 +30,10 @@ describe('Model.js', () => {
       expect(User.blank()).toStrictEqual({ id: -1, name: '' })
     })
     it('should return filled formatted object if fields are set and data provided', () => {
-      expect(User.make(myUser)).toStrictEqual({ id: 999, name: 'toto' })
+      expect(User.make(myUser)).toStrictEqual(validUser)
     })
     it('should formatted object if fields are set and json string provided', () => {
-      expect(User.make(myUserAsString)).toStrictEqual({ id: 999, name: 'toto' })
+      expect(User.make(myUserAsString)).toStrictEqual(validUser)
     })
   })
 
@@ -40,6 +46,16 @@ describe('Model.js', () => {
     })
     it('should throw `is not valid JSON` error with an actual invalid JSON', () => {
       expect(() => User.make(myUserAsStringInvalidJson)).toThrowError(/JSON/)
+    })
+  })
+
+  describe('Model.js toCollection', () => {
+    it('should return a Collection of Model', () => {
+      expect(User.toCollection(myUsers)).toStrictEqual([
+        validUser,
+        validUser,
+        validUser,
+      ])
     })
   })
 })

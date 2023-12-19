@@ -1,6 +1,6 @@
 {
   "name": "@jefffairson/api-models",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Custom tool to manipulate JS objects",
   "main": "main.js",
   "directories": {
@@ -31,7 +31,7 @@
     "objects"
   ],
   "author": "jeFFF @ Tisseur de toile",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jefffairson/js-api-models/issues"
   },
