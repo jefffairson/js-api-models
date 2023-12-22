@@ -52,4 +52,19 @@ export default class Model {
   static toCollection(data) {
     return Collection.make(this, data)
   }
+
+  static withMapping(data = null) {
+    const localModel = new this(data)
+    localModel.checkDataValidity()
+    const localData = this.make(data)
+    if ((this.map !== undefined) && (typeof this.map === 'function')) {
+      const localMapping = this.map()
+      for (let key in localMapping) {
+        if ((typeof localMapping[key] === 'function') && (key in localData)) {
+          localData[key] = localMapping[key](localData[key])
+        }
+      }
+    }
+    return localData
+  }
 }
