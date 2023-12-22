@@ -6,6 +6,8 @@ const model = Model
 const user = User
 
 const myData = { id: 999, name: 'toto', lolilol: 'Resr'}
+const myDataBis = { id: 988, name: 'toto', lolilol: 'Resr'}
+const myDataTris = { id: 98, name: 'toto', lolilol: 'Resr'}
 const myDataAsString = JSON.stringify(myData)
 const myDataAsStringNotJson = myDataAsString.slice(0, -1)
 const myCollection = [
@@ -14,14 +16,14 @@ const myCollection = [
     { id: 3, name: 'tata', full_name: 'Resr 3'},
 ]
 
-const collection = Collection.make(User, myCollection)
+// const collection = Collection.make(User, myCollection)
 
 console.log(
-    // user.make({ id: 999 }),
+    user.withMapping({ id: 999, records: [ myDataBis, myDataTris] }),
     // user.make(999)
     // myData,
     // user.make({...myData}),
-    user.toCollection(myCollection)
+    // user.toCollection(myCollection)
     // User.make(myDataAsString)
     // collection
 )
